@@ -12,9 +12,7 @@ let candleQty = rand(5, 3000);   //Generuojamas zvakes kiekis
 let subtotal = 0;  //Tarpine suma
 let additionalDiscount1 = 0.03;  //Discount 3%
 let additionalDiscount2 = 0.04;  //Discount 4%
-let amountWithDiscount1 = 0;  //Suma pritaikius discount 3%
-let amountWithDiscount2 = 0;  //Suma pritaikius discount 4%
-let amountWithoutDiscount = 0;  //Suma nepritaikius discount
+let finalAmount = 0;  //Galutine suma pritaikius/nepritaikius discount
 
 console.log('Sugeneruotas pradinis kiekis: ' + candleQty);
 console.log('Pradine vieneto kaina: ' + candlePrice);
@@ -22,25 +20,25 @@ subtotal = candleQty * candlePrice;
 console.log('Tarpine suma: ' + subtotal);
 
 if (subtotal > 1000 && subtotal < 2000) {
-amountWithDiscount1 = subtotal - (subtotal * additionalDiscount1);
-candlePrice = amountWithDiscount1 / candleQty;
-console.log('Suma pritaikius nuolaida 3%: ' + amountWithDiscount1);
+finalAmount = subtotal - (subtotal * additionalDiscount1);
+candlePrice = finalAmount / candleQty;
+console.log('Suma pritaikius nuolaida 3%: ' + finalAmount);
 console.log('Perkamas zvakiu kiekis: ' + candleQty);
 console.log('Vieneto kaina pritaikius nuolaida 3%: ' + candlePrice.toFixed(2));
 }
 
 else if (subtotal > 2000) {
-amountWithDiscount2 = subtotal - (subtotal * additionalDiscount2);
-candlePrice = amountWithDiscount2 / candleQty;
-console.log('Suma pritaikius nuolaida 4%: ' + amountWithDiscount2);
+finalAmount = subtotal - (subtotal * additionalDiscount2);
+candlePrice = finalAmount / candleQty;
+console.log('Suma pritaikius nuolaida 4%: ' + finalAmount);
 console.log('Perkamas zvakiu kiekis: ' + candleQty);
 console.log('Vieneto kaina pritaikius nuolaida 4%: ' + candlePrice.toFixed(2));
 }
 
 else {
-amountWithoutDiscount = subtotal;
-candlePrice = amountWithoutDiscount / candleQty;
-console.log('Suma be nuolaidos: ' + amountWithoutDiscount);
+finalAmount = subtotal;
+candlePrice = finalAmount / candleQty;
+console.log('Suma be nuolaidos: ' + finalAmount);
 console.log('Perkamas zvakiu kiekis: ' + candleQty);
 console.log('Vieneto kaina be nuolaidos: ' + candlePrice);
 }
