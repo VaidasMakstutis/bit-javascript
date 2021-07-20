@@ -120,4 +120,35 @@ console.log(1 === true); // skaicius nelygu boolean'ui pagal griezta lygybe
 
 //Let matomas tik tam local bloke arba jis turi buti uzdeklaruotas globaliai pries visus blokus. 
 //Negalima deklaruoti let du kartus
-//Var matomas globaliai visuose blokuose. Jeigu padeklaruojame keliose vietose, tai imama paskutine reiksme
+//Var matomas globaliai visuose blokuose. Jeigu padeklaruojame keliose vietose, 
+//tai imama paskutine reiksme
+
+
+let box1 = 'A';
+
+let box4;
+
+// let box1 = 'A';
+
+if (2 > 1) {
+
+    let box1 = 'B';
+    var box3 = 'ZZ';
+    var box3 = 'XX';
+    if (2 > 1) {
+
+
+        box4 = 88;
+        let box2 = 'C';
+        let box1 = 'A';
+        console.log('if', box1);
+        console.log('if box2', box2);
+        console.log('if box2', box2);
+
+    }
+
+    // console.log('box2', box2);
+
+}
+
+console.log(box3);
