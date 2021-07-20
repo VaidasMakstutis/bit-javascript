@@ -53,7 +53,8 @@ else {
 
 let eksperimentoRezultatas = rand(1, 4);
 
-// Isvesti eksperimento rezultatą ir sprendimą ar pavyko. Pavykęs eksperimentas tas, kurio rezultatas 1 arba 4
+// Isvesti eksperimento rezultatą ir sprendimą ar pavyko. Pavykęs eksperimentas tas, 
+//kurio rezultatas 1 arba 4
 console.log('Eksperimento rezultatas: ' + eksperimentoRezultatas);
 if (eksperimentoRezultatas == 1 || eksperimentoRezultatas == 4) {
     console.log('Eksperimentas pavyko');
@@ -68,7 +69,8 @@ else {
 let automobilioGreitis = rand(40, 125);
 let bauda = 0;
 
-// Išvesti automobilio greitį ir baudos dydį, jeigu greiti didesnis nei 60. Bauda yra viršytas greitis X 5
+// Išvesti automobilio greitį ir baudos dydį, jeigu greiti didesnis nei 60. 
+//Bauda yra viršytas greitis X 5
 console.log('Automobilio greitis: ' + automobilioGreitis);
 if (automobilioGreitis > 60) {
     bauda = automobilioGreitis * 5;
@@ -93,7 +95,8 @@ else {
 }
 
 
-//5 uzduotis
+//5 uzduotis pasinaudojus funkcija rand() sugeneruoti atsitiktinę raidę A, B ar C ir priskirti ją kintamajam raideABC. 
+//Kintamąjį išvesti į konsolę
 
 let raideABC = rand(1, 3);
 console.log(raideABC);
@@ -107,8 +110,6 @@ else {
     console.log('C');
 }
 
-//Pasinaudojus funkcija rand() sugeneruoti atsitiktinę raidę A, B ar C ir priskirti ją kintamajam raideABC. 
-//Kintamąjį išvesti į konsolę
 
 
 //6 uzduotis
@@ -140,7 +141,7 @@ let karves = rand(0, 2);
 // Išvesti asilų ir karvių skaičių ir išvesti rezultatą "gyvulių yra" kai yra nors viena karvė ar asilas 
 //arba "gyvulių nėra" jeigu nėra nei karvių nei asilų
 console.log('Asilai: ' + asilai, 'Karves: ' + karves);
-if (karves >= 1 || asilai >= 1) {
+if (karves > 0 || asilai > 0) {
     console.log('Gyvuliu yra: ');
 }
 else {
@@ -188,11 +189,14 @@ else {
 }
 
 
-//10 uzduotis
+console.log('-------------10 uzduotis-----------------');
 
 let as = rand(0, 2) ? (rand(0, 1) ? 'popierius' : 'zirklės') : 'akmuo';
 
 let tu = rand(0, 2) ? (rand(0, 1) ? 'popierius' : 'zirklės') : 'akmuo';
+
+console.log('as: ' + as, 'tu: ' + tu);
+
 
 // Išvesti as ir tu kintamuosius ir kas laimėjo as ar tu
 
