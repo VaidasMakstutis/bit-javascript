@@ -10,13 +10,20 @@ function rand(min, max) {
 
 let i;
 
-while (i != 55) {
-    i = rand = (0, 100);
-    console.log('WHILE', i);
+if (i < 5) {
+    console.log('IF');
+}
+
+
+let i2;
+
+while (i2 != 55) {  //inversija
+    i2 = rand(0, 100);
+    console.log('WHILE', i2);
 }
 
 do {
-    i = rand = (0, 100);
+    i = rand(0, 100);
     console.log('DO WHILE', i);
 } while (i != 55);
 
