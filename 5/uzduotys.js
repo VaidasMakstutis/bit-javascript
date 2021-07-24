@@ -202,3 +202,81 @@ do {
 } while (isridenta != 5);
 
 console.log('Didelis ciklu: ' + dCiklas, 'Mazu ciklu: ' + mCiklas);
+
+
+console.log('------------9B----------');
+
+
+mCiklas = 0;
+dCiklas = 0;
+let penketuSkaitiklis = 0;
+
+do {
+    isridenta = rand(1, 6);
+
+    if (isridenta == 5) {
+        penketuSkaitiklis++;
+    }
+
+    dCiklas++;
+
+    for (let i = 0; i < isridenta; i++) {
+        mCiklas++;
+    }
+
+} while (penketuSkaitiklis < 3);
+console.log('Skaitiklis: ' + penketuSkaitiklis, 'Mazuju ciklu: ' + mCiklas, 'Dideliu ciklu: ' + dCiklas);
+
+
+console.log('------------9C----------');
+
+mCiklas = 0;
+dCiklas = 0;
+penketuSkaitiklis = 0;
+
+do {
+    isridenta = rand(1, 6);
+
+    if (isridenta == 5) {
+        penketuSkaitiklis++;
+    }
+
+    else {
+        penketuSkaitiklis = 0;
+    }
+
+    dCiklas++;
+
+    for (let i = 0; i < isridenta; i++) {
+        mCiklas++;
+    }
+
+} while (penketuSkaitiklis < 3);
+console.log(penketuSkaitiklis, mCiklas, dCiklas);
+
+
+console.log('------------10----------');
+
+let kazioRezultatas = 0;
+let petroRezultatas = 0;
+let partijuKiekis = 0;
+
+do {
+
+    kazioRezultatas += rand(5, 25);
+    petroRezultatas += rand(10, 20);
+    partijuKiekis++;
+
+} while (kazioRezultatas < 222 && petroRezultatas < 222);
+
+console.log('Kazys: ' + kazioRezultatas, 'Petras: ' + petroRezultatas, 'Partijos: ' + partijuKiekis);
+
+if (kazioRezultatas > petroRezultatas) {
+    console.log('Kazys laimejo');
+}
+else if (kazioRezultatas == petroRezultatas) {
+    console.log('Rezultatai lygus');
+}
+else {
+    console.log('Petras laimejo');
+}
