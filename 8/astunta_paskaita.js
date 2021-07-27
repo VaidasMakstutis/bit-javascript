@@ -152,6 +152,36 @@ bigCycle: for (let i = 1; i <= 3; i++) {
     }
 }
 
+console.log('---------------CONTINUE--------------------');
+
+for (let i = 1; i <= 11; i++) {
+
+    if (i === 5) {
+        continue;  //su continue nutraukiamas tik 5-asis ciklas
+    }
+    console.log('Ciklo nr: ' + i);
+}
+
+
+
+// Kad console.log spausdintų visus skaičius, kurie nesidalina iš 3 (su continue)
+
+// Kad spausdinimas nutrūktų kai i yra daugiau nei 40 (su break)
+
+
+console.log('-----------CONTINUE uzduotys---------------');
+
+for (let k = 1; k <= 111; k++) {
+
+    if (k % 3 == 0) {
+        continue;
+    }
+    if (k > 40) {
+        break;
+    }
+    console.log('Skaiciai, kurie nesidalina is 3:' + k);
+}
+
 
 console.log('----------------BREAK IN WHILE-------------');
 
