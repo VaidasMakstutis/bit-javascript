@@ -178,7 +178,7 @@ console.log('Yra u raidžių:', kiekRaidziu('Zuikis', 'u'));
 console.log('-------Uzduotis nr. 6 su funkcija----------');
 
 function reverseWord(word) {
-    let out ='';
+    let out = '';
     for (let i = 0; i < word.length; i++) {
         out = word[i] + out;
     }
@@ -191,5 +191,26 @@ console.log(reverseWord('sidras')); // sardis
 
 console.log('Uzduotis nr. 7 su funkcija panaikinti balses');
 
-//Panaikinti is zodziu balses
+//Panaikinti is zodzio Papūga balses
 //Pvz: Papūga ====> P*p*g*
+
+
+function beBalsiu(string) {
+    let zvaigzdute = "";
+    for (let j = 0; j < string.length; j++) {
+        if (string[j].toLowerCase() === 'a' || string[j].toLowerCase() === 'ū' || string[j].toLowerCase() === 'e'
+            || string[j].toLowerCase() === 'i' || string[j].toLowerCase() === 'u' || string[j].toLowerCase() === 'o'
+            || string[j].toLowerCase() === 'y' || string[j].toLowerCase() === 'ė') {
+            zvaigzdute += '*';
+        }
+        else {
+             zvaigzdute += string[j];
+         }  
+    }
+    return string + '---be balsiu--->' + zvaigzdute;
+}
+
+console.log(beBalsiu('Papūga'));
+console.log(beBalsiu('Vilkas'));
+console.log(beBalsiu('Zuikis'));
+console.log(beBalsiu('Lapė'));
