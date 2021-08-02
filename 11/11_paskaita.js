@@ -192,7 +192,7 @@ for (let i = 0; i < ilgis; i++) {
         a5[i] = i;
     }
 }
-console.log('Pinigine su nuliniu reiksmiu vietos indeksais: ', a5.slice());
+console.log('Pinigine su vietos indeksais: ', a5.slice());
 
 
 
@@ -216,27 +216,27 @@ console.log('---------------8 Uzduotis---------------');
 
 
 a5 = [];
-let a8Lower = [];   //masyvas reiksmems, kurios mazesnes arba lygios 2
-let a8Upper = [];   //masyvas reiksmems, kurios didesnes uz 2
+let monetos = [];   //masyvas reiksmems, kurios mazesnes arba lygios 2
+let kupiuros = [];   //masyvas reiksmems, kurios didesnes uz 2
 
 for (let z = 0; z < ilgis; z++) {
     a5.push(rand(0, 10));
     if (a5[z] > 2) {
-        a8Upper.push(a5[z]);
+        kupiuros.push(a5[z]);
     }
     else {
-        a8Lower.push(a5[z]);
+        monetos.push(a5[z]);
     }
 }
 console.log('Pinigine: ', a5.slice());
-console.log('Monetos <=2:', a8Lower.slice());
-console.log('Popieriniai pinigai > 2:', a8Upper.slice());
+console.log('Monetos <=2:', monetos.slice());
+console.log('Popieriniai pinigai > 2:', kupiuros.slice());
 
 
 
 console.log('---------------9 Uzduotis---------------');
 
-let pinigine = [a8Lower, a8Upper];   //Masyvas is 2 dimensiju
+let pinigine = [monetos, kupiuros];   //Masyvas is 2 dimensiju
 
 
 console.log(pinigine.slice());
@@ -329,22 +329,22 @@ console.log(pinigine.slice());
 
 console.log('---------------16 Uzduotis---------------');
 
-let amountA8Upper = 0;
+let amountOfKupiuros = 0;
 
-for (let k = 0; k < a8Upper.length; k++) {
-    amountA8Upper += a8Upper[k];
+for (let k = 0; k < kupiuros.length; k++) {
+    amountOfKupiuros += kupiuros[k];
 }
-console.log(a8Upper);
-console.log('Pradine suma: ', amountA8Upper);
+console.log(kupiuros);
+console.log('Pradine suma: ', amountOfKupiuros);
 
 
-while (amountA8Upper <= 500) {
-    let kupiura = rand(3, 10);
-    amountA8Upper += kupiura;
-    a8Upper.push(kupiura);
+while (amountOfKupiuros <= 500) {
+    let papildomaKupiura = rand(3, 10);
+    amountOfKupiuros += papildomaKupiura;
+    kupiuros.push(papildomaKupiura);
 }
 
-console.log('Galutine suma: ', amountA8Upper);
+console.log('Galutine suma: ', amountOfKupiuros);
 
 
 
@@ -367,7 +367,7 @@ console.log('Viso laimingu bilietu yra: ', counterWinTickets);
 
 console.log('---------------18 Uzduotis---------------');
 
-let pictures = ['šuo', 'katė', 'automobilis', 'namas', 'kiemas'];  //Naujas masyvas nuotraukoms
+let pictures = ['šuo', 'katė', 'automobilis', 'namas', 'kiemas'];  //Naujas masyvas
 
 pinigine.push(pictures);
 pictures.sort(function (a, b) { return a.length - b.length });
