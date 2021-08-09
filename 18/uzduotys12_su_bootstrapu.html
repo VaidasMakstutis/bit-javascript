@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="uzduotys12_su_bootstrapu.js" defer></script>
+
+    <title>8-9 Uzduotys DOM & Data</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-9">
+
+                <ul class="list-group m-5">
+
+                    <li class="list-group-item">
+
+                        <div class="form-group">
+
+                            <label>Uždavinys nr. 1</label>
+
+                            <input type="text" id="i1" class="form-control" placeholder="Parašyk ką nors">
+
+                            <small class="form-text text-muted">Parašyk ką nors.</small>
+
+                        </div>
+
+                        <button type="button" id="b1" class="btn btn-success">Pirmas</button>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label>Uždavinys nr. 2</label>
+                            <select id="i2" class="form-control">
+                                <option selected disabled>Pasirink paros meta</option>
+                                <option value="Rytas">Rytas</option>
+                                <option value="Diena">Diena</option>
+                                <option value="Vakaras">Vakaras</option>
+                            </select>
+                            <small class="form-text text-muted">Pasirink laiką.</small>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <label>Uždavinys nr. 3</label>
+                        <div class="form-check">
+                            <div><input class="form-check-input" type="radio" name="i3" value="Rytas"><label
+                                    class="form-check-label">Rytas</label></div>
+                            <div><input class="form-check-input" type="radio" name="i3" value="Diena"><label
+                                    class="form-check-label">Diena</label></div>
+                            <div><input class="form-check-input" type="radio" name="i3" value="Vakaras"><label
+                                    class="form-check-label">Vakaras</label></div>
+                            <small class="form-text text-muted">Pasirink laiką.</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Uždavinys nr. 4</label>
+                        <div class="form-check">
+                            <div><input class="form-check-input" type="checkbox" id="i4"></div>
+                            <small class="form-text text-muted">Taip ar ne?</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Uždavinys nr. 5</label>
+                        <div class="form-check">
+                            <div><input class="form-check-input" type="checkbox" name="i5" value="Rytas"><label
+                                    class="form-check-label">Rytas</label></div>
+                            <div><input class="form-check-input" type="checkbox" name="i5" value="Diena"><label
+                                    class="form-check-label">Diena</label></div>
+                            <div><input class="form-check-input" type="checkbox" name="i5" value="Vakaras"><label
+                                    class="form-check-label">Vakaras</label></div>
+                            <small class="form-text text-muted">Pasirink laiką.</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="go">GO</button>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-9" id="h3-holder">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
