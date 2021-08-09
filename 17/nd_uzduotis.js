@@ -14,23 +14,21 @@ document.querySelector('button').addEventListener('click', () => {
 
 
                 const html = `
-
+               
+                <a href="${photos.download_url}" target="_blank"><img src="https://picsum.photos/id/${photos.id}/200/300"></a>
                 <i>${photos.id}</i>
-
                 <b>${photos.author}</b>
-
-                <b>${photos.download_url}</b>
                 `;
+                
 
 
-
-                const li = document.createElement("li");
-
-
-                li.innerHTML = html;
+                const div = document.createElement("div");
 
 
-                ul.appendChild(li);
+                div.innerHTML = html;
+
+
+                document.body.appendChild(div);
 
             });
 
