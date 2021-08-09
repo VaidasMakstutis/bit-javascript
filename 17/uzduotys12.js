@@ -67,10 +67,14 @@ button1.addEventListener('click', () => {
 
 
 //7 Uzduotis
-parosMetasRadio.forEach(k =>{
+parosMetasRadio.forEach(k => {
     k.addEventListener('change', () => {
         let h3 = document.createElement("h3");
         document.body.appendChild(h3);
         h3.innerText = k.value;
     });
 });
+
+
+
+//8 Uzduotis
