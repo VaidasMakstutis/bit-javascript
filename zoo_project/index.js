@@ -24,7 +24,7 @@ class Animal {
         <h4> color: ${this.color}  </h4>
         <i> ${horn} </i>
         <br>
-        <button data-id="${this.id}"> Delete </button>
+        <button class="btn btn-secondary" data-id="${this.id}"> Delete </button>
         `;
         this.element.innerHTML = html;
 
