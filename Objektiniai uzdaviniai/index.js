@@ -1,13 +1,13 @@
 console.log('--------------------1 uzd-------------------------');
 
 class Kibiras1 {
-    constructor(){
+    constructor() {
         this.akmenuKiekis = 0;
     }
-    prideti1Akmeni(){
+    prideti1Akmeni() {
         this.akmenuKiekis++;
     }
-    pridetiDaugAkmenu(kiekis){
+    pridetiDaugAkmenu(kiekis) {
         this.akmenuKiekis += kiekis;
     }
     kiekPririnktaAkmenu() {
@@ -28,7 +28,7 @@ console.log('--------------------2 uzd-------------------------');
 class Pinigine {
     constructor() {
         this.popieriniaiPinigai = 0;
-        this.metaliniaiPinigai = 0;    
+        this.metaliniaiPinigai = 0;
     }
     ideti(kiekis) {
         if (kiekis <= 2) {
@@ -65,9 +65,9 @@ class Troleibusas {
         this.keleiviuSkaicius -= keleiviuSkaicius;
     }
     vaziuoja() {
-            if (this.keleiviuSkaicius > 0) {
-                console.log('Vaziuojanciu keleiviu skaicius: ', this.keleiviuSkaicius);
-            }
+        if (this.keleiviuSkaicius > 0) {
+            console.log('Vaziuojanciu keleiviu skaicius: ', this.keleiviuSkaicius);
+        }
         else {
             console.log('Nera vaziuojanciu keleiviu');
         }
@@ -110,31 +110,25 @@ class Troleibusas2 {
         }
         this.keleiviuSkaicius -= keleiviuSkaicius;
         this.constructor.bendrasKeleiviuSkaicius(-keleiviuSkaicius);
-      
+
         console.log('Islipo keleiviu: ', keleiviuSkaicius);
     }
     vaziuoja() {
-        if (this.keleiviuSkaicius > 0) {
-            console.log('Vaziuojanciu keleiviu skaicius: ', this.keleiviuSkaicius);
-        }
-    else {
-        console.log('Nera vaziuojanciu keleiviu');
+        console.log(`Keleiviu sk troleibuse: ${this.keleiviuSkaicius}`);
     }
 }
-}
-
 
 const e1 = new Troleibusas2();
 e1.ilipa(5);
 e1.ilipa(10);
 e1.islipa(4);
-e1.islipa(15);
+e1.islipa(5);
 e1.vaziuoja();
 
 const f1 = new Troleibusas2();
 f1.ilipa(8);
 f1.ilipa(3);
-f1.islipa(14);
+f1.islipa(4);
 f1.islipa(1);
 f1.vaziuoja();
 
