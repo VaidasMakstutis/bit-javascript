@@ -1,15 +1,36 @@
 class Animal {
+
+    static animals = [];
+
+    static createAnimal(specie, tailLong, color, hasHorn){
+        this.animals.push(new Animal (specie, tailLong, color, hasHorn));
+    }
+
+    static renderZoo() {
+        this.animals.forEach(e =>{
+            e.render();
+            // console.log(e);
+        });
+    }
+
+    static clearZoo() {
+        document.querySelectorAll("div").forEach(e => e.remove());
+    }
+
     constructor(specie, tailLong, color, hasHorn) {
 
         this.specie = specie;
         this.tailLong = tailLong;
         this.color = color;
         this.hasHorn = hasHorn;
-        console.log(this.specie);
         this.createAnimalRandom();
+    }
+
+    render() {
         this.createAnimalElement();
         this.createAnimalHtml();
     }
+
     createAnimalElement() {
         this.element = document.createElement('div');
         document.body.appendChild(this.element);
@@ -29,6 +50,7 @@ class Animal {
         this.element.innerHTML = html;
 
     }
+
     createAnimalRandom() {
         this.id = Math.floor(Math.random() * 9000000) + 1000000;
     }
@@ -41,17 +63,14 @@ const horn = document.querySelector('#horn');
 
 document.querySelector('#btn1').
     addEventListener('click', () => {
-        mas.push(new Animal(specie.value, 
-            taillong.value, 
-            color.value, 
-            horn.checked));
+        Animal.clearZoo();
+        Animal.createAnimal(specie.value, taillong.value, color.value, horn.checked);
+        Animal.renderZoo();
     });
 
-const mas = [];
-mas.push(new Animal('Šeškas', 50, 'black-white', false));
-mas.push(new Animal('Bebras', 0, 'grey', false));
-mas.push(new Animal('Ūdra', 10, 'mixed brown', true));
-mas.push(new Animal('Kiaunė', 15, 'dark-wood', true));
-console.log(mas);
+Animal.createAnimal('Šeškas', 50, 'black-white', false);
+Animal.createAnimal('Bebras', 0, 'grey', false);
+Animal.createAnimal('Ūdra', 10, 'mixed brown', true);
+Animal.createAnimal('Kiaunė', 15, 'dark-wood', true);
 
-console.log(Animal);
+Animal.renderZoo();
