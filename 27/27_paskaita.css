@@ -1,0 +1,50 @@
+:root {
+    --color: purple;
+    --line: 2px solid var(--color);
+}
+
+.ruler {
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ruler .ruler-segment {
+    box-sizing: border-box;
+    width: 25px;
+    height: 200px;
+    position: relative;
+    border-top: var(--line);
+    border-left: var(--line);
+}
+
+.ruler .ruler-segment span {
+    font-size: 14px;
+    display: inline-block;
+    position: absolute;
+    left: 23px;
+    top: -10px;
+    font-weight: 500;
+    color: var(--color);
+}
+
+.ball {
+    position: absolute;
+    top: 400px;
+    left: 400px;
+    width: 100px;
+    height: 100px;
+    border: var(--line);
+    border-radius: 50%;
+}
+
+.ball-sticked {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    width: 100px;
+    height: 100px;
+    border: var(--line);
+    border-radius: 50%;
+    background-color: orange;
+}
