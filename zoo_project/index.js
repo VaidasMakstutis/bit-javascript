@@ -2,6 +2,34 @@ class Animal {
 
     static animals = [];
 
+    static start() {
+        this.buttonCreate();
+        this.buttonHideModal();
+        this.buttonEdit();
+        this.buttonConfirmDelete();
+
+        // Animal.createAnimal('Šeškas', 50, 'black-white', false);
+        // Animal.createAnimal('Bebras', 0, 'grey', false);
+        // Animal.createAnimal('Ūdra', 10, 'mixed brown', true);
+        // Animal.createAnimal('Kiaunė', 15, 'dark-wood', true);
+        this.load();
+    }
+
+    static editAnimal(id, specie, tailLong, color, hasHorn) {
+        this.animals.forEach(animal => {
+            if (id == animal.id) {
+                this.clearZoo();
+                animal.specie = specie;
+                animal.tailLong = tailLong;
+                animal.color = color;
+                animal.hasHorn = hasHorn;
+                this.renderZoo();
+            }
+        });
+        this.save();
+        this.hideModal('edit');
+    }
+
     static createAnimal(specie, tailLong, color, hasHorn) {
         this.clearZoo();
         this.animals.push(new Animal(specie, tailLong, color, hasHorn));
@@ -14,32 +42,79 @@ class Animal {
             e.render();
             // console.log(e);
         });
-        console.log(this.animals);
+        // console.log(this.animals);
     }
 
     static clearZoo() {
-        document.querySelectorAll("div").forEach(e => e.remove());
+        this.animals.forEach(animal => document.querySelector('.card').removeChild(animal.element));
+    }
+
+    static showEditModal(animal) {
+        const modal = document.querySelector('#edit');
+        modal.style.display = 'block';
+        modal.style.opacity = 1;
+        modal.querySelector('.btn-primary').dataset.id = animal.id;
+
+        const specie = document.querySelector('#edit [name=specie]');
+        const taillong = document.querySelector('#edit [name=taillong]');
+        const color = document.querySelector('#edit [name=color]');
+        const horn = document.querySelector('#edit [name=horn]');
+
+        specie.value = animal.specie;
+        taillong.value = animal.tailLong;
+        color.value = animal.color;
+        horn.checked = animal.hasHorn;
+    }
+
+    static showDeleteConfirmModal(id) {
+        const modal = document.querySelector('#confirm-delete');
+        modal.style.display = 'block';
+        modal.style.opacity = 1;
+        modal.querySelector('.btn-primary').dataset.id = id;
+    }
+
+    static buttonConfirmDelete() {
+        document.querySelector('#confirm-delete .btn-primary')
+        .addEventListener('click', (e) => {
+            this.deleteAnimal(e.target.dataset.id);
+            this.hideModal('confirm-delete');
+        });
+    }
+
+    static hideModal(id) {
+        const modal = document.querySelector('#' + id);
+        modal.style.display = 'none';
+        modal.style.opacity = 0;
+        delete modal.querySelector('.btn-primary').dataset.id;
     }
 
     static buttonCreate() {
-        const specie = document.querySelector('#specie');
-        const taillong = document.querySelector('#taillong');
-        const color = document.querySelector('#color');
-        const horn = document.querySelector('#horn');
+        const specie = document.querySelector('#create [name=specie]');
+        const taillong = document.querySelector('#create [name=taillong]');
+        const color = document.querySelector('#create [name=color]');
+        const horn = document.querySelector('#create [name=horn]');
         document.querySelector('#btn1').
             addEventListener('click', () => {
                 this.createAnimal(specie.value, taillong.value, color.value, horn.checked);
             });
     }
 
-    static start() {
-        this.buttonCreate();
+    static buttonEdit() {
 
-        // Animal.createAnimal('Šeškas', 50, 'black-white', false);
-        // Animal.createAnimal('Bebras', 0, 'grey', false);
-        // Animal.createAnimal('Ūdra', 10, 'mixed brown', true);
-        // Animal.createAnimal('Kiaunė', 15, 'dark-wood', true);
-        this.load();
+        const specie = document.querySelector('#edit [name=specie]');
+        const taillong = document.querySelector('#edit [name=taillong]');
+        const color = document.querySelector('#edit [name=color]');
+        const horn = document.querySelector('#edit [name=horn]');
+        document.querySelector('.modal .btn-primary').
+            addEventListener('click', (e) => {
+                this.editAnimal(e.target.dataset.id, specie.value, taillong.value, color.value, horn.checked);
+            });
+    }
+
+    static buttonHideModal() {
+        document.querySelectorAll('[data-dismiss=modal]')
+            .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
+        });
     }
 
     static deleteAnimal(id) {
@@ -72,10 +147,10 @@ class Animal {
 
     static load() {
         if (null === localStorage.getItem('zooApp')) {
-            localStorage.setItem('zooApp', JSON.stringify([])); 
+            localStorage.setItem('zooApp', JSON.stringify([]));
         }
         JSON.parse(localStorage.getItem('zooApp'))
-        .forEach(j => this.createAnimal(j.specie, j.tailLong, j.color, j.hasHorn));
+            .forEach(j => this.createAnimal(j.specie, j.tailLong, j.color, j.hasHorn));
     }
 
     constructor(specie, tailLong, color, hasHorn) {
@@ -91,11 +166,12 @@ class Animal {
         this.createAnimalElement();
         this.createAnimalHtml();
         this.deleteButton();  //Button event
+        this.editButton();  //Button event
     }
 
     createAnimalElement() {
         this.element = document.createElement('div');
-        document.body.appendChild(this.element);
+        document.querySelector('.container .card').appendChild(this.element);
 
     }
     createAnimalHtml() {
@@ -119,9 +195,19 @@ class Animal {
         this.id = Math.floor(Math.random() * 9000000) + 1000000;
     }
 
+    // deleteButton() {
+    //     this.element.querySelector('.btn-primary').
+    //         addEventListener('click', () => this.constructor.deleteAnimal(this.id));
+    // }
+
     deleteButton() {
         this.element.querySelector('.btn-primary').
-            addEventListener('click', () => this.constructor.deleteAnimal(this.id));
+            addEventListener('click', () => this.constructor.showDeleteConfirmModal(this.id));
+    }
+
+    editButton() {
+        this.element.querySelector('.btn-secondary').
+            addEventListener('click', () => this.constructor.showEditModal(this));
     }
 }
 
