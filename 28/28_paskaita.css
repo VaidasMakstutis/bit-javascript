@@ -1,0 +1,23 @@
+:root {
+    --color: black;
+    --line: 2px solid var(--color);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+.ball {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    width: 100px;
+    height: 100px;
+    border: var(--line);
+    border-radius: 50%;
+    background-color: orange;
+    transition: all 2s;
+    cursor: pointer;
+}
