@@ -73,3 +73,8 @@ body {
 .main-container .task-container .task-columns .new-task-card h4 {
     background-color: grey;
 }
+
+.main-container .task-container .task-columns .new-task-card .task-content .btn-delete button {
+    margin-bottom: 2px;
+    padding: 2px;
+}

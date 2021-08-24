@@ -6,28 +6,25 @@ class Task {
     static start() {
         this.buttonSaveNewTask();
         this.addNewTaskButton();
+        this.buttonHideModal();
         this.load();
     }
 
-    // static createNewTaskModal() {
-    //     const html = `
-    //     <h4> ${this.taskTitle} </h4>
-    //     <textarea> ${this.taskDescription} </textarea>
-    //     <br>
-    //     <button class="btn btn-primary" data-id="${this.id}"> X </button>
-    //     `;
-    //     // this.element.innerHTML = html;
-
-    // }
 
     static showCreateModal() {
         const modal = document.querySelector('#create-modal');
         modal.style.display = 'block';
         modal.style.opacity = 1;
-        // modal.querySelector('.btn-primary').dataset.id = tasks.id;
     }
 
-    static hideCreateModal() {
+    static showDeleteConfirmModal(id) {
+        const modal = document.querySelector('#confirm-delete');
+        modal.style.display = 'block';
+        modal.style.opacity = 1;
+        modal.querySelector('.btn-primary').dataset.id = id;
+    }
+
+    static hideModal() {
         const modal = document.querySelector('#create-modal');
         modal.style.display = 'none';
         modal.style.opacity = 0;
@@ -50,12 +47,29 @@ class Task {
             
     }
 
+    static buttonHideModal() {
+        document.querySelectorAll('[data-dismiss=modal]')
+        //     .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('#create-modal').id))
+        // });
+    }
+
     static createTask(taskTitle, taskDescription, taskStatus) {
         this.clearTask();
         this.tasks.push(new Task(taskTitle, taskDescription, taskStatus));
         this.renderTask();
         this.save();
-        this.hideCreateModal();
+        this.hideModal();
+    }
+
+    static deleteTask(id) {
+        this.tasks.forEach((task, index) => { 
+            if(task.id == id) {
+                this.clearTask();
+                this.tasks.splice(index, 1);
+                this.renderTask();
+            }
+    });
+    this.save();
     }
 
     static renderTask() {
@@ -96,15 +110,16 @@ class Task {
     }
 
 
-    constructor(taskTitle, taskDescription, taskStatus, taskId) {
+    constructor(taskTitle, taskDescription, taskStatus) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
-        this.taskId = taskId;
+        this.createTaskRandom();
     }
 
     render() {
         this.createNewTask();
+        this.deleteButton();
         // this.createNewTaskModal();
     }
 
@@ -130,11 +145,31 @@ class Task {
 
         body.appendChild(document.createElement('h4')).appendChild(document.createTextNode(this.taskTitle));
         body.appendChild(document.createElement('div')).appendChild(document.createTextNode(this.taskDescription));
-        // console.log(body);
+
+        const buttonhtml = document.createElement('div');
+        buttonhtml.classList.add('btn-delete');
+        buttonhtml.appendChild(document.createElement('button')).appendChild(document.createTextNode('X'));
+
+        // <button class="btn-delete-modal" data-id="${this.id}"> X </button>
+   
         html.appendChild(body);
+        body.appendChild(buttonhtml);
         document.querySelector('.task-columns').appendChild(html);
     }
 
-}
+    createTaskRandom() {
+        this.id = Math.floor(Math.random() * 9000000) + 1000000;
+    }
+
+    deleteButton() {
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+
+            addEventListener('click', (e) => {this.constructor.deleteTask(e.target.dataset.id);
+            console.log('blabla');}
+            );
+        })     
+    }
+   
+    }
 
 Task.start();
