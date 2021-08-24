@@ -1,12 +1,14 @@
 class Animal {
 
     static animals = [];
+    static filterSet;
 
     static start() {
         this.buttonCreate();
         this.buttonHideModal();
         this.buttonEdit();
         this.buttonConfirmDelete();
+        this.buttonSort();
 
         // Animal.createAnimal('Šeškas', 50, 'black-white', false);
         // Animal.createAnimal('Bebras', 0, 'grey', false);
@@ -22,19 +24,20 @@ class Animal {
                 animal.specie = specie;
                 animal.tailLong = tailLong;
                 animal.color = color;
-                animal.hasHorn = hasHorn;
-                this.renderZoo();
+                animal.hasHorn = hasHorn;  
             }
         });
         this.save();
+        this.renderZoo();
         this.hideModal('edit');
     }
 
     static createAnimal(specie, tailLong, color, hasHorn) {
         this.clearZoo();
         this.animals.push(new Animal(specie, tailLong, color, hasHorn));
-        this.renderZoo();
+        this.makeFilterSet();
         this.save();
+        this.renderZoo();
     }
 
     static renderZoo() {
@@ -43,10 +46,12 @@ class Animal {
             // console.log(e);
         });
         // console.log(this.animals);
+        this.filterSelect();
     }
 
     static clearZoo() {
         this.animals.forEach(animal => document.querySelector('.card').removeChild(animal.element));
+        this.clearFilterSelect();
     }
 
     static showEditModal(animal) {
@@ -75,11 +80,38 @@ class Animal {
 
     static buttonConfirmDelete() {
         document.querySelector('#confirm-delete .btn-primary')
-        .addEventListener('click', (e) => {
-            this.deleteAnimal(e.target.dataset.id);
-            this.hideModal('confirm-delete');
+            .addEventListener('click', (e) => {
+                this.deleteAnimal(e.target.dataset.id);
+                this.hideModal('confirm-delete');
+            });
+    }
+
+    static makeFilterSet(){
+        this.filterSet = new Set();
+        this.animals.forEach(animal => this.filterSet.add(animal.specie));
+        this.filterSet = new Set([...this.filterSet].sort());
+        // console.log(this.filterSet);
+    }
+
+    static filterSelect() {
+        
+        if (undefined === this.filterSet) {
+            return;
+        }
+
+        const select = document.querySelector('#animals-list')
+        this.filterSet.forEach(a => {
+            const element = document.createElement('option');
+            element.innerText = a;
+            element.value = a;
+            select.appendChild(element);
         });
     }
+
+    static clearFilterSelect() {
+        document.querySelector('#animals-list').innerHTML = '';
+    }
+
 
     static hideModal(id) {
         const modal = document.querySelector('#' + id);
@@ -111,10 +143,48 @@ class Animal {
             });
     }
 
+
     static buttonHideModal() {
         document.querySelectorAll('[data-dismiss=modal]')
-            .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
-        });
+            .forEach(b => {
+                b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
+            });
+    }
+
+    static buttonSort() {
+        document.querySelectorAll('#sort-specie, #sort-tail-long')
+            .forEach(btn => {
+                btn.addEventListener('click', (e) => this.showSorted(e.target.id))
+            });
+    }
+
+    static showSorted(id) {
+        // console.log(id);
+        const dir = document.querySelector('#sort-asc').checked ? 1: -1;
+        if ('sort-tail-long' == id) {
+            this.animals.sort(function (a, b) {
+                return dir * (a.tailLong - b.tailLong);
+            });
+        }
+
+        if ('sort-specie' == id) {
+            this.animals.sort(function (a, b) {
+                const nameA = a.specie.toUpperCase();
+                const nameB = b.specie.toUpperCase();
+                if (nameA < nameB) {
+                    return -dir;
+                }
+                if (nameA > nameB) {
+                    return dir;
+                }
+
+                // names must be equal
+                return 0;
+            });
+        }
+
+        this.clearZoo();
+        this.renderZoo();
     }
 
     static deleteAnimal(id) {
@@ -143,6 +213,7 @@ class Animal {
 
         //Local storage
         localStorage.setItem('zooApp', JSON.stringify(data));
+        this.makeFilterSet();
     }
 
     static load() {
@@ -174,6 +245,7 @@ class Animal {
         document.querySelector('.container .card').appendChild(this.element);
 
     }
+
     createAnimalHtml() {
         const horn = this.hasHorn ? 'Has horn' : 'No horn';
         const html = `
@@ -194,11 +266,6 @@ class Animal {
     createAnimalRandom() {
         this.id = Math.floor(Math.random() * 9000000) + 1000000;
     }
-
-    // deleteButton() {
-    //     this.element.querySelector('.btn-primary').
-    //         addEventListener('click', () => this.constructor.deleteAnimal(this.id));
-    // }
 
     deleteButton() {
         this.element.querySelector('.btn-primary').

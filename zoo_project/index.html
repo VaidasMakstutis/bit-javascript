@@ -16,6 +16,11 @@
             box-sizing: border-box;
         }
 
+        .btn-primary {
+            margin: 10px 0;
+
+        }
+
         /* .container {
             width: 100vw;
             height: 100vh;
@@ -23,22 +28,48 @@
             justify-content: flex-start;
             flex-wrap: wrap;
         } */
-
     </style>
 </head>
 
 <body>
     <div id="create">
-            Specie:<input type="text" class="form-control-sm" name="specie" placeholder="please enter specie">
-            <br>
-            TailLong:<input type="text" class="form-control-sm" name="taillong" placeholder="please enter taillong">
-            <br>
-            Color:<input type="text" class="form-control-sm" name="color" placeholder="please enter color">
-            <br>
-            Horn selection:<input class="input-group-text" type="checkbox" name="horn" value="has horn">
-            <label for="horn">Yes</label>
-            <br>
-            <button class="btn btn-primary" id="btn1">Add animal</button>
+        Specie:<input type="text" class="form-control-sm" name="specie" placeholder="please enter specie">
+        <br>
+        TailLong:<input type="text" class="form-control-sm" name="taillong" placeholder="please enter taillong">
+        <br>
+        Color:<input type="text" class="form-control-sm" name="color" placeholder="please enter color">
+        <br>
+        Horn selection:<input class="input-group-text" type="checkbox" name="horn" value="has horn">
+        <label for="horn">Yes</label>
+        <br>
+        <button class="btn btn-primary" id="btn1">Add animal</button>
+    </div>
+
+
+    <div>
+        <hr>
+        <div class="sort">Sort direction</div>
+            <input type="radio" id="sort-asc" name="sort" value="asc">
+            <label for="asc">ASC</label>
+
+            <input type="radio" id="sort-desc" name="sort" value="desc">
+            <label for="desc">DESC</label>
+        </div>
+        <button type="button" id="sort-specie" class="btn btn-primary">Sort by specie</button>
+        <button type="button" id="sort-tail-long" class="btn btn-primary">Sort by taillong</button>
+    </div>
+
+
+    <div>
+        <hr>
+        <div class="sort">Filtering</div>
+
+        <select name="animals" id="animals-list">
+          </select>
+
+        </div>
+        <button type="button" id="filtering" class="btn btn-primary">Filter animals</button>
+        <button type="button" id="show-all-animals" class="btn btn-primary">Show all</button>
     </div>
 
 
