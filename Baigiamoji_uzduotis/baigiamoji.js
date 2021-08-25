@@ -6,6 +6,7 @@ class Task {
     static start() {
         this.buttonSaveNewTask();
         this.addNewTaskButton();
+        this.buttonConfirmDelete();
         this.buttonHideModal();
         this.load();
     }
@@ -24,11 +25,19 @@ class Task {
         modal.querySelector('.btn-primary').dataset.id = id;
     }
 
-    static hideModal() {
-        const modal = document.querySelector('#create-modal');
+    static buttonConfirmDelete() {
+        document.querySelector('#confirm-delete .btn-primary')
+            .addEventListener('click', (e) => {
+                this.deleteTask(e.target.dataset.id);
+                this.hideModal('confirm-delete');
+            });
+    }
+
+    static hideModal(id) {
+        const modal = document.querySelector('#' + id);
         modal.style.display = 'none';
         modal.style.opacity = 0;
-        delete modal.querySelector('.btn-secondary').dataset.id;
+        delete modal.querySelector('.btn-primary').dataset.id;
     }
 
     static buttonSaveNewTask() {
@@ -36,7 +45,7 @@ class Task {
         const taskDescription = document.querySelector('#create-modal [name=task-description]');
         document.querySelector('#btn-save-task').
             addEventListener('click', () => {
-                this.createTask(taskTitle.value, taskDescription.value, 'New');
+                this.createTask(taskTitle.value, taskDescription.value, "New");
                 // console.log(taskTitle.value, taskDescription.value);
             });
     }
@@ -49,16 +58,17 @@ class Task {
 
     static buttonHideModal() {
         document.querySelectorAll('[data-dismiss=modal]')
-        //     .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('#create-modal').id))
-        // });
+        .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
+        });
     }
 
-    static createTask(taskTitle, taskDescription, taskStatus) {
+    static createTask(taskTitle, taskDescription, taskStatus, id) {
         this.clearTask();
-        this.tasks.push(new Task(taskTitle, taskDescription, taskStatus));
-        this.renderTask();
+        this.tasks.push(new Task(taskTitle, taskDescription, taskStatus, id));
         this.save();
-        this.hideModal();
+        this.renderTask();
+        this.hideModal('create-modal');
+        console.log(this.tasks);
     }
 
     static deleteTask(id) {
@@ -69,7 +79,7 @@ class Task {
                 this.renderTask();
             }
     });
-    this.save();
+        this.save();
     }
 
     static renderTask() {
@@ -91,7 +101,7 @@ class Task {
                 taskTitle: k.taskTitle,
                 taskDescription: k.taskDescription,
                 taskStatus: k.taskStatus,
-                taskId: k.taskId,
+                id: k.id
             });
         });
         // console.log(data);
@@ -106,45 +116,54 @@ class Task {
             localStorage.setItem('tasksApp', JSON.stringify([]));
         }
         JSON.parse(localStorage.getItem('tasksApp'))
-            .forEach(j => this.createTask(j.taskTitle, j.taskDescription, j.taskStatus));
+            .forEach(j => this.createTask(j.taskTitle, j.taskDescription, j.taskStatus, j.id));
     }
 
 
-    constructor(taskTitle, taskDescription, taskStatus) {
+    constructor(taskTitle, taskDescription, taskStatus, id) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
+        this.id = id;
         this.createTaskRandom();
     }
 
     render() {
         this.createNewTask();
+        this.createNewResults();
         this.deleteButton();
         // this.createNewTaskModal();
     }
 
+    createNewResults() {
+
+    }
+
     createNewTask() {
+
         const html = document.createElement('div');
         html.classList.add('new-task-card');
 
         const body = document.createElement('div');
         body.classList.add('task-content');
 
-        // if (this.taskStatus == 'new') {
-        //     body.classList.add('new-task-card');
-        //     console.log('bla1: ', this.taskStatus);
-        // }
-        // else if (this.taskStatus == 'pending') {
-        //     body.classList.add('pending-task-card');
-        //     console.log('bla2: ', this.taskStatus);
-        // }
-        // else {
-        //     body.classList.add('done-task-card');
-        //     console.log('bla3: ', this.taskStatus);
-        // }
+        if (this.taskStatus === "new") {
+            body.classList.add('new');
+            // console.log('bla1: ', this.taskStatus);
+        }
+        else if (this.taskStatus === "pending") {
+            body.classList.add('pending');
+            // console.log('bla2: ', this.taskStatus);
+        }
+        else {
+            body.classList.add("done");
+            // console.log('bla3: ', this.taskStatus);
+        }
+
 
         body.appendChild(document.createElement('h4')).appendChild(document.createTextNode(this.taskTitle));
         body.appendChild(document.createElement('div')).appendChild(document.createTextNode(this.taskDescription));
+
 
         const buttonhtml = document.createElement('div');
         buttonhtml.classList.add('btn-delete');
@@ -164,12 +183,13 @@ class Task {
     deleteButton() {
         document.querySelectorAll('.btn-delete').forEach(btn => {
 
-            addEventListener('click', (e) => {this.constructor.deleteTask(e.target.dataset.id);
-            console.log('blabla');}
-            );
+            btn.addEventListener('click', (e) => {
+                this.constructor.showDeleteConfirmModal(this.id);
+                this.constructor.deleteTask(e.target.dataset.id);
+            });
         })     
     }
    
-    }
+}
 
 Task.start();
