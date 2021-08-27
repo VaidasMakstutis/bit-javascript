@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-container {
+    border: 2px solid purple;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.book-container div {
+    margin: 20px;
+    padding: 20px;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.book-container div h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.book-container div span {
+    color: red;
+}
+
+.book-container div.no-cover {
+
+    background-color: transparent;
+
+}
+
+.book-container div.pink-cover {
+
+    background-color: hotpink;
+
+}
+
+.book-container div.yellow-cover {
+
+    background-color: yellowgreen;
+
+}
