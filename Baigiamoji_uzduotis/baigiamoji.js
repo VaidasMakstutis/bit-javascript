@@ -48,7 +48,8 @@ class Task {
         const taskDescription = document.querySelector('#create-modal [name=task-description]');
         document.querySelector('#btn-save-task').
             addEventListener('click', () => {
-                this.createTask(taskTitle.value, taskDescription.value, "New");
+                this.createTask(taskTitle.value, taskDescription.value);
+                    // "New"
                 // console.log(taskTitle.value, taskDescription.value);
             });
     }
@@ -173,7 +174,7 @@ class Task {
     }
 
 
-    constructor(taskTitle, taskDescription, taskStatus, id) {
+    constructor(taskTitle, taskDescription, taskStatus = "new", id) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
@@ -196,8 +197,8 @@ class Task {
 
     createNewTask() {
 
-        const html = document.createElement('div');
-        html.classList.add('task-card');
+        this.html = document.createElement('div');
+        this.html.classList.add('task-card');
 
         const body = document.createElement('div');
         body.classList.add('task-content');
@@ -205,14 +206,13 @@ class Task {
         body.appendChild(document.createElement('h4')).appendChild(document.createTextNode(this.taskTitle));
         body.appendChild(document.createElement('div')).appendChild(document.createTextNode(this.taskDescription));
 
-
         const buttonhtml = document.createElement('div');
         buttonhtml.classList.add('btn-delete');
         buttonhtml.appendChild(document.createElement('button')).appendChild(document.createTextNode('X'));
    
-        html.appendChild(body);
+        this.html.appendChild(body);
         body.appendChild(buttonhtml);
-        document.querySelector('#task-section').appendChild(html);
+        document.querySelector('#task-section').appendChild(this.html);
     }
 
     createTaskRandom() {
@@ -220,13 +220,11 @@ class Task {
     }
 
     deleteButton() {
-        document.querySelectorAll('.btn-delete').forEach(btn => {
+        this.html.querySelector('.btn-delete').addEventListener('click', (e) => {
 
-            btn.addEventListener('click', (e) => {
                 this.constructor.showDeleteConfirmModal(this.id);
                 this.constructor.deleteTask(e.target.dataset.id);
-            });
-        })     
+            });    
     }
    
 }
