@@ -7,83 +7,103 @@
 body {
     width: 100vw;
     height: 100vh;
-}
-
-.main-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    /* background-color: #F5F5F5; */
     background-color:rgb(235, 252, 252);
 }
 
-.main-container .task-container {
-    min-width: 800px;
-    min-height: 700px;
-    /* border: 1px solid purple; */
-}
-
-.main-container .task-container header {
+.task-container header {
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    margin: 0 15px;
+    margin: 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 100px;
-    /* border: 1px solid red; */
 }
 
-.main-container .task-container header button {
+.task-container header button {
     font-size: 14px;
     cursor: pointer;
     border-radius: 5%;
 }
 
-.main-container .task-container .task-results {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.main-container .task-container #task-status {
+.task-container #task-status {
+    margin: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: lightgrey;
     padding: 5px 10px;
 }
 
-.main-container .task-container #task-status div {
-    min-width: 120px;
+.task-container #task-status div {
+    /* min-width: 150px; */
     font-size: 16px;
     text-align: center;
+    padding: 0 10px;
+    margin:0 10px;
   }
 
-.main-container .task-container #task-section {
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+.task-container #task-status div.new-task {
+    background-color: grey;
+    color: white;
 }
 
-.main-container .task-container #task-section .task-card {
+.task-container #task-status div.pending-task {
+    background-color: red;
+    color: white;
+}
+
+.task-container #task-status div.done-task {
+    background-color: lightgreen;
+    color: white;
+}
+
+.task-container #task-section {
+    margin: 20px;
+    /* min-width: 700px;
+    display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between;
+    align-items: flex-start; */
+}
+
+.task-container #task-section .swiper-wrapper {
+    /* display: flex; */
+    /* width: 100%; */
+    /* height: 650px; */
+}
+
+.task-container #task-section .task-column {
     width: 33%;
+}
+
+.task-container #task-section .task-card {
     text-align: center;
     border: 2px solid grey;
     margin: 10px 10px;
     word-wrap: break-word;
 }
 
-.main-container .task-container #task-section .task-card h4 {
+.task-container #task-section .new h4 {
     background-color: grey;
+    color: white;
+    cursor: pointer;
 }
 
-.main-container .task-container #task-section .task-card .task-content .btn-delete button {
+.task-container #task-section .pending h4 {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.task-container #task-section .done h4 {
+    background-color: lightgreen;
+    color: white;
+    cursor: pointer;
+}
+
+.task-container #task-section .task-card .task-content .btn-delete button {
     background-color: red;
     color: white;
     border-radius: 3px;

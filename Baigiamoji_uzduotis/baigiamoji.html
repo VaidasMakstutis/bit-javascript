@@ -12,6 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="baigiamoji.css">
     <title>To Do List</title>
     <script src="baigiamoji.js" defer></script>
@@ -52,8 +54,8 @@
     </div>
 
 
-     <!-- Confirm delete modal -->
-     <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+    <!-- Confirm delete modal -->
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
 
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -82,7 +84,6 @@
     </div>
 
 
-    <div class="main-container">
         <div class="task-container">
             <header>
                 <span>To Do List</span>
@@ -96,23 +97,22 @@
                 <div class="status done-task"></div>
                 <div class="total-tasks"></div>
 
-            </section>
-
-            <section id="task-section">
-
-                
-<!-- 
-                    <div class="task-card">
-                        <div class="task-content">
-                        <h6>New tasks:</h6>
-                        <div></div>
-                    </div>
-                </div> -->
 
             </section>
+
+            <div id="task-section" class="swiper">
+
+                <div class="swiper-wrapper">
+
+                    <div class="task-column new swiper-slide"></div>
+                    <div class="task-column pending swiper-slide"></div>
+                    <div class="task-column done swiper-slide"></div>
+
+                </div>
+
+            </div>
 
         </div>
-    </div>
 
 </body>
 

@@ -8,9 +8,10 @@ class Task {
 
     static start() {
         this.buttonSaveNewTask();
-        this.addNewTaskButton();
+        this.buttonAddNewTask();
         this.buttonConfirmDelete();
         this.buttonHideModal();
+        this.buttonStatus();
         this.load();
     }
 
@@ -49,20 +50,47 @@ class Task {
         document.querySelector('#btn-save-task').
             addEventListener('click', () => {
                 this.createTask(taskTitle.value, taskDescription.value);
-                    // "New"
+                // "New"
                 // console.log(taskTitle.value, taskDescription.value);
             });
     }
 
-    static addNewTaskButton() {
+    static buttonAddNewTask() {
         document.querySelector('#add-new-task').
             addEventListener('click', () => this.showCreateModal());
-            
+
     }
 
     static buttonHideModal() {
         document.querySelectorAll('[data-dismiss=modal]')
-        .forEach(b => { b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
+            .forEach(b => {
+                b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id))
+            });
+    }
+
+    static buttonStatus() {
+        const btnNewTask = document.querySelector(".new-task");
+        if (this.newTasks == 0) {
+            btnNewTask.style.cursor = "default";
+        }
+        btnNewTask.addEventListener("click", () => {
+            swiper.slideTo(0, 300, true);
+        });
+
+        const btnPendingTask = document.querySelector(".pending-task");
+        if (this.pendingTasks == 0) {
+            btnPendingTask.style.cursor = "default";
+        }
+        btnPendingTask.addEventListener("click", () => {
+            swiper.slideTo(1, 300, true);
+        });
+
+        const btnDoneTask = document.querySelector(".done-task");
+        if (this.doneTasks == 0) {
+            btnDoneTask.style.cursor = "default";
+        }
+        btnDoneTask.addEventListener("click", () => {
+            swiper.slideTo(2, 300, true);
         });
     }
 
@@ -75,18 +103,21 @@ class Task {
         console.log(this.tasks);
     }
 
-    static changeTaskStatus (id) {
+    static changeTaskStatus(id) {
         this.tasks.forEach(k => {
-            if(k.id == id) {
+            if (k.id == id) {
                 this.clearTasks();
                 let checking = 0;
                 if (k.taskStatus == "new") {
+                    // if (this.newTasks <= 1) swiper.slideNext(300, true);
                     k.taskStatus = "pending";
                 }
                 else if (k.taskStatus == "pending") {
+                    // if (this.pendingTasks <= 1) swiper.slideNext(300, true);
                     k.taskStatus = "done";
                 } else {
-                    k.taskStatus = "new";
+                    // if (this.doneTasks <= 1) swiper.slideTo(0, 300, true);
+                    k.taskStatus = "pending";
                 }
                 this.renderTasks();
             }
@@ -96,13 +127,13 @@ class Task {
 
 
     static deleteTask(id) {
-        this.tasks.forEach((k, index) => { 
-            if(k.id == id) {
+        this.tasks.forEach((k, index) => {
+            if (k.id == id) {
                 this.clearTasks();
                 this.tasks.splice(index, 1);
                 this.renderTasks();
             }
-    });
+        });
         this.save();
     }
 
@@ -122,7 +153,7 @@ class Task {
             }
             if (k.taskStatus == "pending") {
                 this.pendingTasks++;
-            } 
+            }
             if (k.taskStatus == "done") {
                 this.doneTasks++;
             }
@@ -130,22 +161,22 @@ class Task {
 
         const newTask = document.querySelector(".new-task");
         newTask.innerHTML = `New tasks: ${this.newTasks}`;
-    
+
         const pendingTask = document.querySelector(".pending-task");
         pendingTask.innerHTML = `Pending tasks: ${this.pendingTasks}`;
 
         const doneTask = document.querySelector(".done-task");
         doneTask.innerHTML = `Done tasks: ${this.doneTasks}`;
-    
+
         const totalTasks = document.querySelector("div.total-tasks");
         totalTasks.innerText = `Total tasks: ${this.newTasks + this.pendingTasks + this.doneTasks}`;
 
-        // console.log('New: ', this.newTasks);
     }
 
     static clearTasks() {
-        document.querySelector('#task-section').innerHTML = '';
-        // document.querySelectorAll("div.task-card").forEach(e => e.remove);
+        document.querySelectorAll('.task-column').forEach(task => {
+            task.innerHTML = '';
+        })
     }
 
     static save() {
@@ -183,36 +214,42 @@ class Task {
     }
 
     render() {
-        this.createNewTask();
-        this.createTaskElement();
+        this.createNewTaskHtml();
+        // this.createTaskElement();
         this.deleteButton();
         // this.createNewTaskModal();
     }
 
-    createTaskElement() {
-        // this.element = document.createElement("div");
-        // this.element.classList.add("task");
-        // document.querySelector(`#task-section .${this.taskStatus}`).appendChild(this.element);
-      }
 
-    createNewTask() {
+    createNewTaskHtml() {
 
         this.html = document.createElement('div');
         this.html.classList.add('task-card');
+        this.html.classList.add(this.taskStatus);
 
         const body = document.createElement('div');
         body.classList.add('task-content');
+        body.dataset.id = this.id;
 
-        body.appendChild(document.createElement('h4')).appendChild(document.createTextNode(this.taskTitle));
-        body.appendChild(document.createElement('div')).appendChild(document.createTextNode(this.taskDescription));
+        body.appendChild(document.createElement('h4'))
+        .appendChild(document.createTextNode(this.taskTitle));
+        body.addEventListener("dblclick", () => {
+            this.constructor.changeTaskStatus(this.id);
+        });
+
+
+        body.appendChild(document.createElement('div'))
+        .appendChild(document.createTextNode(this.taskDescription));
+
 
         const buttonhtml = document.createElement('div');
         buttonhtml.classList.add('btn-delete');
-        buttonhtml.appendChild(document.createElement('button')).appendChild(document.createTextNode('X'));
-   
+        buttonhtml.appendChild(document.createElement('button'))
+        .appendChild(document.createTextNode('X'));
+
         this.html.appendChild(body);
         body.appendChild(buttonhtml);
-        document.querySelector('#task-section').appendChild(this.html);
+        document.querySelector(`.task-column.${this.taskStatus}`).appendChild(this.html);
     }
 
     createTaskRandom() {
@@ -222,11 +259,30 @@ class Task {
     deleteButton() {
         this.html.querySelector('.btn-delete').addEventListener('click', (e) => {
 
-                this.constructor.showDeleteConfirmModal(this.id);
-                this.constructor.deleteTask(e.target.dataset.id);
-            });    
+            this.constructor.showDeleteConfirmModal(this.id);
+            this.constructor.deleteTask(e.target.dataset.id);
+        });
     }
-   
+
 }
+
+const swiper = new Swiper(".swiper", {
+    direction: "horizontal",
+    loop: false,
+  
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+  
+    breakpoints: {
+      // when window width is >= 480px
+      540: {
+        slidesPerView: 3,
+        spaceBetween: 0
+      }
+    }
+  });
+
 
 Task.start();
