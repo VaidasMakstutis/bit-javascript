@@ -2,6 +2,7 @@ class Animal {
 
     static animals = [];
     static filterSet;
+    element;
 
     static start() {
         this.buttonCreate();
@@ -9,6 +10,8 @@ class Animal {
         this.buttonEdit();
         this.buttonConfirmDelete();
         this.buttonSort();
+        this.buttonFilter();
+        this.showAllButton();
 
         // Animal.createAnimal('Šeškas', 50, 'black-white', false);
         // Animal.createAnimal('Bebras', 0, 'grey', false);
@@ -27,7 +30,7 @@ class Animal {
                 animal.hasHorn = hasHorn;  
             }
         });
-        this.save();
+        
         this.renderZoo();
         this.hideModal('edit');
     }
@@ -50,7 +53,7 @@ class Animal {
     }
 
     static clearZoo() {
-        this.animals.forEach(animal => document.querySelector('.card').removeChild(animal.element));
+        this.animals.forEach(animal => document.querySelector('.container').removeChild(animal.element));
         this.clearFilterSelect();
     }
 
@@ -88,23 +91,30 @@ class Animal {
 
     static makeFilterSet(){
         this.filterSet = new Set();
-        this.animals.forEach(animal => this.filterSet.add(animal.specie));
-        this.filterSet = new Set([...this.filterSet].sort());
-        // console.log(this.filterSet);
+        this.animals.sort(function (a, b) {
+            const nameA = a.specie.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.specie.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+          });
+      
+        this.animals.forEach(animal => {
+            this.filterSet.add(animal.specie);
+          });
     }
 
     static filterSelect() {
-        
-        if (undefined === this.filterSet) {
-            return;
-        }
 
-        const select = document.querySelector('#animals-list')
-        this.filterSet.forEach(a => {
-            const element = document.createElement('option');
-            element.innerText = a;
-            element.value = a;
-            select.appendChild(element);
+        const select = document.querySelector("#animals-list");
+        this.filterSet.forEach(animal => {
+            const option = document.createElement("option");
+            option.appendChild(document.createTextNode(animal));
+            option.setAttribute("value", animal);
+            select.appendChild(option);
         });
     }
 
@@ -152,22 +162,39 @@ class Animal {
     }
 
     static buttonSort() {
-        document.querySelectorAll('#sort-specie, #sort-tail-long')
-            .forEach(btn => {
-                btn.addEventListener('click', (e) => this.showSorted(e.target.id))
+        document.querySelector('#sort-specie').addEventListener('click', e => {
+                this.showSorted(e.target.id);
+            });
+        document.querySelector('#sort-tail-long').addEventListener('click', e => {
+                this.showSorted(e.target.id);
             });
     }
+
+    static buttonFilter() {
+        document.querySelector('#filtering').addEventListener('click', () => {
+            this.showFiltered()
+        });
+    }
+
+    static showAllButton() {
+        document.querySelector('#show-all-animals').
+        addEventListener('click', () => {
+            this.animals = [];
+            this.load();
+        });
+    }
+
 
     static showSorted(id) {
         // console.log(id);
         const dir = document.querySelector('#sort-asc').checked ? 1: -1;
-        if ('sort-tail-long' == id) {
+        if (id == 'sort-tail-long') {
             this.animals.sort(function (a, b) {
                 return dir * (a.tailLong - b.tailLong);
             });
         }
 
-        if ('sort-specie' == id) {
+        if (id == 'sort-specie') {
             this.animals.sort(function (a, b) {
                 const nameA = a.specie.toUpperCase();
                 const nameB = b.specie.toUpperCase();
@@ -179,13 +206,36 @@ class Animal {
                 }
 
                 // names must be equal
-                return 0;
+                // return 0;
             });
         }
 
         this.clearZoo();
         this.renderZoo();
     }
+
+
+    static showFiltered() {
+        const filterValue = document.querySelector('#animals-list').value;
+        const an = [];
+        this.animals.forEach(animal => {
+            if (animal.specie == filterValue) {
+                an.push(animal);
+            }
+        });
+        this.animals = an;
+        console.log(this.animals, an);
+        this.clearZoo();
+        this.renderZoo();
+        // document.querySelectorAll('.card button').forEach(b => {
+        //     b.setAttribute('disabled', true);
+        // })
+    }
+
+    // static rerender = () => {
+    //     this.clearZoo(); // iš html'o ištrinam visus gyvulius
+    //     this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
+    // }
 
     static deleteAnimal(id) {
         this.animals.forEach((e, index) => {
@@ -222,6 +272,7 @@ class Animal {
         }
         JSON.parse(localStorage.getItem('zooApp'))
             .forEach(j => this.createAnimal(j.specie, j.tailLong, j.color, j.hasHorn));
+        this.makeFilterSet();
     }
 
     constructor(specie, tailLong, color, hasHorn) {
@@ -242,22 +293,24 @@ class Animal {
 
     createAnimalElement() {
         this.element = document.createElement('div');
-        document.querySelector('.container .card').appendChild(this.element);
-
+        this.element.classList.add('card');
+        document.querySelector('.container').appendChild(this.element);
+        // console.log(this.element);
     }
 
     createAnimalHtml() {
         const horn = this.hasHorn ? 'Has horn' : 'No horn';
         const html = `
-        <hr>
         <h2> ${this.specie}</h2>
         <span> Tail long: ${this.tailLong} cm </span>
         <h4> color: ${this.color}  </h4>
         <i> ${horn} </i>
-        <br>
-        <button class="btn btn-secondary" data-id="${this.id}"> Edit </button>
-        <br>
-        <button class="btn btn-primary" data-id="${this.id}"> Delete </button>
+            <div>
+                <button class="btn btn-secondary" data-id="${this.id}"> Edit </button>
+            </div>
+            <div>
+                <button class="btn btn-primary" data-id="${this.id}"> Delete </button>
+            </div>
         `;
         this.element.innerHTML = html;
 

@@ -1,0 +1,37 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    margin: 10px 0;
+}
+
+.input-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px;
+}
+
+.input-data #create input {
+    margin: 5px;
+}
+
+.input-data .sort {
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.container .card {
+    border: 1px solid lightblue;
+    min-width: 200px;
+    margin: 5px;
+}
