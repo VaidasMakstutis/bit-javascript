@@ -7,7 +7,7 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color:rgb(235, 252, 252);
+    background-color:rgb(253, 255, 255);
 }
 
 .task-container header {
@@ -25,7 +25,8 @@ body {
 .task-container header button {
     font-size: 14px;
     cursor: pointer;
-    border-radius: 5%;
+    border: none;
+    background-color: rgb(34, 34, 187);
 }
 
 .task-container #task-status {
@@ -44,18 +45,21 @@ body {
   }
 
 .task-container #task-status div.new-task {
-    background-color: grey;
+    background-color: rgb(223, 190, 3);
     color: white;
+    padding: 5px 10px;
 }
 
 .task-container #task-status div.pending-task {
-    background-color: red;
+    background-color: rgb(160, 194, 67);
     color: white;
+    padding: 5px 10px;
 }
 
 .task-container #task-status div.done-task {
-    background-color: lightgreen;
+    background-color: rgb(37, 122, 37);
     color: white;
+    padding: 5px 10px;
 }
 
 .task-container #task-section {
@@ -73,36 +77,41 @@ body {
 
 .task-container #task-section .task-card {
     text-align: center;
-    border: 2px solid grey;
-    margin: 10px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 18px 10px;
     word-wrap: break-word;
 }
 
 .task-container #task-section .new h4 {
-    background-color: grey;
+    background-color: rgb(223, 190, 3);
     color: white;
     cursor: pointer;
+    padding: 5px 0;
 }
 
 .task-container #task-section .pending h4 {
-    background-color: red;
+    background-color: rgb(160, 194, 67);
     color: white;
     cursor: pointer;
+    padding: 5px 0;
 }
 
 .task-container #task-section .done h4 {
-    background-color: lightgreen;
+    background-color: rgb(37, 122, 37);
     color: white;
     cursor: pointer;
+    padding: 5px 0;
 }
 
 .task-container #task-section .task-card .task-content .btn-delete button {
-    background-color: red;
+    background-color: rgb(202, 0, 0);
     color: white;
     border-radius: 3px;
-    margin-bottom: 2px;
-    padding: 2px;
     cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    padding: 2px;
 }
 
 
