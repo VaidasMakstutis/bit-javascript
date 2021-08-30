@@ -35,3 +35,22 @@
     min-width: 200px;
     margin: 5px;
 }
+
+
+@media screen and (max-width: 580px) {
+    .input-data {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    #create {
+        margin-bottom: 20px;
+        border-bottom: 1px solid lightblue;
+    }
+
+    #sort-and-filtering .sort {
+        border-bottom: 1px solid lightblue;
+    }
+        
+}
