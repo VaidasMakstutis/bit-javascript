@@ -24,6 +24,10 @@
     margin-bottom: 20px;
 }
 
+#edit .modal-body input {
+    margin: 5px;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
