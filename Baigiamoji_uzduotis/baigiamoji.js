@@ -242,13 +242,21 @@ class Task {
         .appendChild(document.createTextNode(this.taskDescription));
 
 
-        const buttonhtml = document.createElement('div');
+        const buttonhtml = document.createElement('span');
         buttonhtml.classList.add('btn-delete');
-        buttonhtml.appendChild(document.createElement('button'))
+        buttonhtml.appendChild(document.createElement('button-delete'))
         .appendChild(document.createTextNode('X'));
 
+
+        const buttonchangestatus = document.createElement('div');
+        buttonchangestatus.classList.add('btn-change');
+        buttonchangestatus.appendChild(document.createElement('button-change'))
+        .appendChild(document.createTextNode('Move'));
+
+
         this.html.appendChild(body);
-        body.appendChild(buttonhtml);
+        buttonchangestatus.appendChild(buttonhtml);
+        body.appendChild(buttonchangestatus);
         document.querySelector(`.task-column.${this.taskStatus}`).appendChild(this.html);
     }
 

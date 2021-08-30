@@ -10,6 +10,18 @@ body {
     background-color:rgb(253, 255, 255);
 }
 
+#create-modal .modal-body input {
+    margin: 10px 5px;
+}
+
+#create-modal .modal-body textarea {
+    margin: 10px 5px;
+}
+
+#create-modal .modal-body textarea::placeholder {
+    padding: 0px 5px;
+}
+
 .task-container header {
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
@@ -83,6 +95,10 @@ body {
     word-wrap: break-word;
 }
 
+.task-container #task-section .task-card .task-content div {
+    padding: 10px 0;
+}
+
 .task-container #task-section .new h4 {
     background-color: rgb(223, 190, 3);
     color: white;
@@ -104,16 +120,24 @@ body {
     padding: 5px 0;
 }
 
-.task-container #task-section .task-card .task-content .btn-delete button {
+.task-container #task-section .task-card .task-content .btn-delete button-delete {
     background-color: rgb(202, 0, 0);
     color: white;
     border-radius: 3px;
     cursor: pointer;
     margin-top: 7px;
-    margin-bottom: 10px;
-    padding: 2px;
+    margin-bottom: 5px;
+    padding: 5px;
 }
 
+.task-container #task-section .task-card .task-content .btn-change button-change {
+    display: none;
+    background-color: rgb(130, 172, 165);
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    margin: 10px;
+}
 
 @media screen and (max-width: 480px) {
 
@@ -130,5 +154,12 @@ body {
 .task-container #task-status div {
     margin: 10px;
     }
-    
+
+.task-container #task-section .task-card .task-content h4 {
+    cursor: default;
+}
+
+.task-container #task-section .task-card .task-content .btn-change button-change {
+    display: inline-block;
+    }
 }
