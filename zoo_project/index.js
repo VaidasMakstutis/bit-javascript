@@ -53,7 +53,8 @@ class Animal {
     }
 
     static clearZoo() {
-        this.animals.forEach(animal => document.querySelector('.container').removeChild(animal.element));
+        // this.animals.forEach(animal => document.querySelector('.container').removeChild(animal.element));
+        document.querySelector('.container').innerHTML = '';
         this.clearFilterSelect();
     }
 
