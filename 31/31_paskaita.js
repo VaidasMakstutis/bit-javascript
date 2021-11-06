@@ -3,13 +3,15 @@ class Book {
     author;
     pages;
     title;
+    price;
 
     static bookShelf = new Set();
 
-    constructor(title, pages, author, color = 'no') {
+    constructor(title, pages, price, color = 'no', ...author) {
         this.title = title;
         this.pages = pages;
         this.author = author;
+        this.price = price;
         this.color = color;
         this.createHtml();
 
@@ -20,8 +22,13 @@ class Book {
         this.element = document.createElement('div');
         const html = `
         <h2>${this.title}</h2>
+
+        
+
         <h4>${this.author}</h4>
         <span>${this.pages}</span>
+        <br>
+        <span>${this.price} EUR</span>
         `;
         this.element.innerHTML = html;
         document.querySelector('.book-container').appendChild(this.element);
@@ -48,9 +55,9 @@ class YellowCover extends Book {
 }
 
 
-const book1 = new PinkCover('Dievų miškas', 280, 'Balys Sruoga');
-const book2 = new YellowCover('Altorių šesėly', 400, 'Vincas Mykolaitis-Putinas');
-const book3 = new Book('Balta drobulė', 300, 'Antanas Škėma');
+const book1 = new PinkCover('Dievų miškas', 280, 'Balys Sruoga', 30.50);
+const book2 = new YellowCover('Altorių šesėly', 400, 'Vincas Mykolaitis-Putinas', 25.80);
+const book3 = new Book('Balta drobulė', 300, 'Antanas Škėma', 38.99);
 
 console.log(book1, book2, book3);
 console.log(Book.bookShelf);

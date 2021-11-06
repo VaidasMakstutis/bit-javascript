@@ -129,7 +129,7 @@ const f1 = new Troleibusas2();
 f1.ilipa(8);
 f1.ilipa(3);
 f1.islipa(4);
-f1.islipa(1);
+f1.islipa(3);
 f1.vaziuoja();
 
 Troleibusas2.keleiviuSkaiciusVisuoseTroleibusuose();
